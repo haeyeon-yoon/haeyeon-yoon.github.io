@@ -44,7 +44,7 @@ main { flex: 1; display: flex; justify-content: center; padding: 40px 24px 90px;
 .profile { display: grid; grid-template-columns: auto 1fr; column-gap: 40px; row-gap: 10px;
   align-items: start; max-width: 840px; width: 100%; line-height: 1.5; font-size: 17px; }
 .profile > * { grid-column: 2; }
-.profile img { grid-column: 1; grid-row: 2 / 5; align-self: center; width: 170px; height: 170px; margin: 0;
+.profile img { grid-column: 1; grid-row: 2 / 5; align-self: stretch; height: calc(100% - 8px); margin: 4px 0; width: 228px;
   border-radius: 16px; object-fit: cover; object-position: 50% 25%; border: 1px solid var(--border); }
 .profile h1 { grid-row: 1; font-size: 2rem; margin: 8px 0 0; font-weight: 600; line-height: 1.2; }
 .profile hr { height: 1px; margin: 4px 0; background: #DCCCBE; border: 0; align-self: center; }
@@ -67,7 +67,7 @@ main { flex: 1; display: flex; justify-content: center; padding: 40px 24px 90px;
 
 /* ---------- inner pages (PaperMod post style) ---------- */
 .page { max-width: 760px; margin: 0 auto; }
-.back { font-size: 15px; color: var(--secondary); display: inline-block; margin-bottom: 18px; }
+.back { font-size: 18px; color: var(--secondary); display: inline-block; margin-bottom: 18px; }
 .back:hover { color: var(--accent); }
 .page h1 { font-size: 32px; font-weight: 700; line-height: 1.2; margin: 0 0 6px; }
 .page h2 { font-size: 24px; line-height: 1.2; margin: 40px 0 14px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
@@ -152,8 +152,8 @@ body[data-ui="a6"] .social a { color: #A86F6A; }
       <h1>Haeyeon (Hailey) Yoon</h1>
       <hr class="r1">
       <div class="bio-text">
-      <p>I am a Senior Lecturer in Economics at University of Bristol, UK.
-        My research interest lies in international trade and environmental economics.</p>
+      <p>I am a Senior Lecturer in Economics at University of Bristol, UK.</p>
+      <p>My research interest lies in international trade and environmental economics.</p>
       <p>I study trade and environmental policies, and how they shape each other. To answer these questions, I analyze large-scale firm-level data and text data using ML methods, foundation models (e.g. LLMs), and modern econometric tools.</p>
       </div>
       <hr class="r2">
