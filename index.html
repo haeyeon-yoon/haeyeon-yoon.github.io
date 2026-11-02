@@ -42,9 +42,9 @@ main { flex: 1; display: flex; justify-content: center; padding: 40px 24px 90px;
 /* Michaillat-style profile: one left-aligned column, divider lines between blocks */
 /* grid: photo in column 1 spans exactly from the first divider line to the second */
 .profile { display: grid; grid-template-columns: auto 1fr; column-gap: 40px; row-gap: 10px;
-  align-items: start; max-width: 840px; width: 100%; line-height: 1.5; font-size: 17px; }
+  align-items: start; max-width: 900px; width: 100%; line-height: 1.5; font-size: 17px; }
 .profile > * { grid-column: 2; }
-.profile img { grid-column: 1; grid-row: 2 / 5; align-self: stretch; height: calc(100% - 8px); margin: 4px 0; width: 228px;
+.profile img { grid-column: 1; grid-row: 2 / 5; align-self: stretch; height: calc(100% - 8px); margin: 4px 0; width: 150px; min-height: 0;
   border-radius: 16px; object-fit: cover; object-position: 50% 25%; border: 1px solid var(--border); }
 .profile h1 { grid-row: 1; font-size: 2rem; margin: 8px 0 0; font-weight: 600; line-height: 1.2; }
 .profile hr { height: 1px; margin: 4px 0; background: #DCCCBE; border: 0; align-self: center; }
@@ -248,6 +248,20 @@ function route() {
 }
 window.addEventListener('hashchange', route);
 route();
+
+/* keep the photo square and exactly between the first two lines */
+function fitPhoto() {
+  var img = document.querySelector('.profile img');
+  if (!img || window.innerWidth <= 720) { if (img) img.style.width = ''; return; }
+  for (var i = 0; i < 6; i++) {
+    var h = Math.round(img.getBoundingClientRect().height);
+    if (Math.abs(img.offsetWidth - h) < 2) break;
+    img.style.width = h + 'px';
+  }
+}
+window.addEventListener('load', fitPhoto);
+window.addEventListener('resize', fitPhoto);
+if (document.fonts) document.fonts.ready.then(fitPhoto);
 </script>
 </body>
 </html>
