@@ -163,6 +163,9 @@ body[data-ui="a6"] .social a { color: #A86F6A; }
 .pdfwrap iframe { display: block; width: 100%; height: 85vh; min-height: 560px; border: 0; }
 .pdfnote { font-size: 14px; color: var(--secondary); margin-top: 10px; }
 .pdfnote a { color: #9F665E; text-decoration: underline; text-underline-offset: 3px; }
+.cvpages { margin-top: 18px; display: flex; flex-direction: column; gap: 18px; }
+.cvpages canvas { display: block; width: 100%; height: auto; background: #fff; border-radius: 4px;
+  box-shadow: 0 2px 14px rgba(59,47,44,.10); }
 </style>
 </head>
 <body data-ui="a6">
@@ -262,10 +265,8 @@ body[data-ui="a6"] .social a { color: #A86F6A; }
     <div class="page cvpage">
       <a class="back" href="#">← Home</a>
       <div class="cvhead"><h1>CV</h1></div>
-      <div class="pdfwrap">
-        <iframe src="https://drive.google.com/file/d/1KUfC27pWXuTMIQlXZduU2hLfj-k9Pwxi/preview" title="CV of Haeyeon Yoon (PDF)" allow="autoplay" loading="lazy"></iframe>
-      </div>
-      <p class="pdfnote">If the CV does not appear, <a href="https://drive.google.com/file/d/1KUfC27pWXuTMIQlXZduU2hLfj-k9Pwxi/view">open it in a new tab</a>.</p>
+      <div id="cvpages" class="cvpages"><p class="pdfnote">Loading CV…</p></div>
+      <p class="pdfnote">Having trouble viewing? <a href="cv.pdf">Open the CV as a PDF</a>.</p>
     </div>
   </section>
 </main>
@@ -295,6 +296,39 @@ function fitPhoto() {
 window.addEventListener('load', fitPhoto);
 window.addEventListener('resize', fitPhoto);
 if (document.fonts) document.fonts.ready.then(fitPhoto);
+
+/* CV: draw each PDF page straight onto the page (PDF.js) */
+var cvState = { pdf: null, loading: false, width: 0 };
+function loadScript(src) { return new Promise(function (ok, bad) { var s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = bad; document.head.appendChild(s); }); }
+function drawCV() {
+  var box = document.getElementById('cvpages');
+  var w = box.clientWidth; if (!w || !cvState.pdf || w === cvState.width) return;
+  cvState.width = w; box.innerHTML = '';
+  var ratio = window.devicePixelRatio || 1;
+  (function next(n) {
+    if (n > cvState.pdf.numPages) return;
+    cvState.pdf.getPage(n).then(function (page) {
+      var base = page.getViewport({ scale: 1 });
+      var vp = page.getViewport({ scale: (w / base.width) * ratio });
+      var c = document.createElement('canvas'); c.width = vp.width; c.height = vp.height;
+      box.appendChild(c);
+      page.render({ canvasContext: c.getContext('2d'), viewport: vp }).promise.then(function () { next(n + 1); });
+    });
+  })(1);
+}
+function openCV() {
+  if (cvState.pdf) { drawCV(); return; }
+  if (cvState.loading) return; cvState.loading = true;
+  var base = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/';
+  loadScript(base + 'pdf.min.js').then(function () {
+    pdfjsLib.GlobalWorkerOptions.workerSrc = base + 'pdf.worker.min.js';
+    return pdfjsLib.getDocument('cv.pdf').promise;
+  }).then(function (pdf) { cvState.pdf = pdf; drawCV(); })
+    .catch(function () { document.getElementById('cvpages').innerHTML = '<p class="pdfnote">The CV could not be shown here. <a href="cv.pdf">Open it as a PDF</a>.</p>'; });
+}
+window.addEventListener('hashchange', function () { if (location.hash === '#cv') openCV(); });
+if (location.hash === '#cv') openCV();
+var cvResize; window.addEventListener('resize', function () { clearTimeout(cvResize); cvResize = setTimeout(function () { if (location.hash === '#cv') drawCV(); }, 250); });
 </script>
 </body>
 </html>
