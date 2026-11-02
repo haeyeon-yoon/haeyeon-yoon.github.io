@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Haeyeon (Hailey) Yoon</title>
+<meta name="description" content="Haeyeon (Hailey) Yoon, Senior Lecturer in Economics at the University of Bristol. Research in international trade and environmental economics.">
+<meta name="author" content="Haeyeon Yoon">
+<link rel="icon" href="photo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --theme:    #F6F0E8;
+  --entry:    #FBF8F3;
+  --primary:  #3B2F2C;
+  --secondary:#7A6A63;
+  --tertiary: #BA7F76;
+  --content:  #40352F;
+  --border:   #E6DACE;
+  --accent:   #A86F6A;
+  --head: "Lora", Georgia, serif;
+  --body: "Source Sans 3", -apple-system, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; min-height: 100vh; display: flex; flex-direction: column;
+  background: var(--theme); color: var(--content);
+  font-family: var(--body); font-size: 18px; line-height: 1.65;
+}
+a { color: inherit; text-decoration: none; }
+h1, h2, h3 { font-family: var(--head); color: var(--primary); }
+
+main { flex: 1; display: flex; justify-content: center; padding: 40px 24px 90px; }
+.view { display: none; width: 100%; }
+.view.on { display: block; }
+
+/* ---------- home (profile mode) ---------- */
+#home.on { display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 190px); }
+/* Michaillat-style profile: one left-aligned column, divider lines between blocks */
+/* grid: photo in column 1 spans exactly from the first divider line to the second */
+.profile { display: grid; grid-template-columns: auto 1fr; column-gap: 40px; row-gap: 10px;
+  align-items: start; max-width: 840px; width: 100%; line-height: 1.5; font-size: 17px; }
+.profile > * { grid-column: 2; }
+.profile img { grid-column: 1; grid-row: 2 / 5; align-self: center; width: 170px; height: 170px; margin: 0;
+  border-radius: 16px; object-fit: cover; object-position: 50% 25%; border: 1px solid var(--border); }
+.profile h1 { grid-row: 1; font-size: 2rem; margin: 8px 0 0; font-weight: 600; line-height: 1.2; }
+.profile hr { height: 1px; margin: 4px 0; background: #DCCCBE; border: 0; align-self: center; }
+.profile .bio-text { grid-row: 3; }
+.profile p { margin: 0; }
+.profile .bio-text p + p { margin-top: 10px; }
+@media (max-width: 720px) {
+  .profile { grid-template-columns: 1fr; }
+  .profile > *, .profile img, .profile h1, .profile .bio-text { grid-column: 1 !important; grid-row: auto !important; }
+  .profile img { width: 150px; height: 150px; margin: 0; }
+}
+.social { display: flex; gap: 0; margin: 0; }
+.social a { display: inline-flex; padding: 6px 15px 6px 0; width: auto; height: auto; color: var(--primary); transition: color .15s; }
+.social a:hover { color: var(--accent); }
+.social svg { width: 26px; height: 26px; }
+.buttons { display: flex; flex-wrap: wrap; gap: 0; }
+.button { background: var(--tertiary); color: #fff; font-weight: 500; font-size: 16px;
+  border-radius: 8px; margin: 6px 12px 6px 0; padding: 8px 18px; transition: all .15s ease-in-out; }
+.button:hover { background: #9F665E; }
+
+/* ---------- inner pages (PaperMod post style) ---------- */
+.page { max-width: 760px; margin: 0 auto; }
+.back { font-size: 15px; color: var(--secondary); display: inline-block; margin-bottom: 18px; }
+.back:hover { color: var(--accent); }
+.page h1 { font-size: 32px; font-weight: 700; line-height: 1.2; margin: 0 0 6px; }
+.page h2 { font-size: 24px; line-height: 1.2; margin: 40px 0 14px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+.paper { margin: 0 0 18px; }
+.paper .t { font-weight: 600; color: var(--primary); }
+.paper a.t:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.paper .m { color: var(--secondary); font-size: 16px; }
+.paper .m em { color: var(--content); }
+ol.plain { padding-left: 0; list-style: none; margin: 0; }
+table { border-collapse: collapse; width: 100%; font-size: 17px; }
+td { padding: 12px 8px; line-height: 1.55; border-bottom: 1px solid var(--border); vertical-align: top; }
+td:first-child { color: var(--secondary); white-space: nowrap; width: 110px; }
+.note { margin-top: 22px; color: var(--secondary); font-size: 16px; }
+
+footer { text-align: center; font-size: 13px; color: var(--secondary); padding: 20px; }
+
+
+
+/* ---------- icon + button style options (preview only) ---------- */
+/* layout A: icons left, buttons right, one shared row */
+body[data-ui^="a"] hr.r3 { display: none; }
+body[data-ui^="a"] .profile .social { grid-row: 5; justify-self: start; align-self: center; }
+body[data-ui^="a"] .profile .buttons { grid-row: 5; justify-self: end; align-self: center; }
+body[data-ui^="a"] .social a { color: var(--secondary); }
+body[data-ui^="a"] .social a:hover { color: #A86F6A; }
+body[data-ui^="a"] .social svg { width: 21px; height: 21px; }
+body[data-ui^="a"] .button { background: transparent; padding: 5px 16px; font-size: 15px; margin: 4px 0 4px 10px; }
+/* A1 thin rosy outline */
+body[data-ui="a1"] .button { color: #9F665E; border: 1px solid #D3B2AB; }
+body[data-ui="a1"] .button:hover { background: #BA7F76; border-color: #BA7F76; color: #fff; }
+/* A2 thicker rosy outline */
+body[data-ui="a2"] .button { color: #8F5A53; border: 2px solid #BA7F76; font-weight: 600; }
+body[data-ui="a2"] .button:hover { background: #BA7F76; color: #fff; }
+/* A3 espresso outline */
+body[data-ui="a3"] .button { color: #3B2F2C; border: 1.5px solid #3B2F2C; }
+body[data-ui="a3"] .button:hover { background: #3B2F2C; color: #F6F0E8; }
+body[data-ui="a3"] .social a { color: #3B2F2C; }
+/* A4 mocha outline */
+body[data-ui="a4"] .button { color: #6F5546; border: 1.5px solid #8B6F5E; }
+body[data-ui="a4"] .button:hover { background: #8B6F5E; color: #fff; }
+body[data-ui="a4"] .social a { color: #8B6F5E; }
+/* A5 cream card with soft shadow */
+body[data-ui="a5"] .button { background: #FFFDFA; color: #3B2F2C; border: 1px solid #E6DACE; box-shadow: 0 1px 3px rgba(59,47,44,.08); }
+body[data-ui="a5"] .button:hover { border-color: #BA7F76; color: #9F665E; box-shadow: 0 3px 10px rgba(59,47,44,.10); }
+/* A6 rosy pill */
+body[data-ui="a6"] .button { color: #9F665E; border: 1.5px solid #BA7F76; border-radius: 8px; padding: 5px 16px; }
+body[data-ui="a6"] .button:hover { background: #BA7F76; color: #fff; }
+body[data-ui="a6"] .social a { color: #A86F6A; }
+@media (max-width: 720px) {
+  .profile .buttons { justify-self: start !important; }
+  body[data-ui^="a"] .button { margin: 4px 10px 4px 0; }
+}
+/* lift on hover */
+.social a { transition: color .15s, transform .15s; }
+.social a:hover { transform: translateY(-2px); }
+.button { transition: all .15s ease-in-out; }
+.button:hover { transform: translateY(-2px); }
+/* abstracts */
+.paper details { margin-top: 4px; }
+.paper summary { cursor: pointer; display: inline-block; font-size: 14px; color: #9F665E; border: 1px solid #D3B2AB;
+  border-radius: 6px; padding: 1px 10px; list-style: none; transition: all .15s; }
+.paper summary::-webkit-details-marker { display: none; }
+.paper summary:hover, .paper details[open] summary { background: #BA7F76; border-color: #BA7F76; color: #fff; }
+.paper details p { margin: 10px 0 4px; padding: 12px 16px; background: var(--entry); border-left: 3px solid #D3B2AB;
+  border-radius: 0 6px 6px 0; font-size: 16px; line-height: 1.6; color: var(--content); }
+/* headings + paper titles */
+.page h2 { color: var(--primary); }
+.paper .t { font-weight: 400; }
+.page h1 { color: #9F665E; }
+.award { display: flex; align-items: baseline; gap: 8px; margin: 0 0 10px; padding: 4px 0;
+  font-size: 16px; font-style: italic; color: var(--content); }
+.award .star { color: #BA7F76; font-size: 18px; font-weight: 600; line-height: 1; }
+.lvl { color: var(--secondary); font-size: 15px; }
+</style>
+</head>
+<body data-ui="a6">
+<main>
+  <!-- HOME -->
+  <section id="home" class="view">
+    <div class="profile">
+      <img src="photo.jpg" alt="Haeyeon Yoon">
+      <h1>Haeyeon (Hailey) Yoon</h1>
+      <hr class="r1">
+      <div class="bio-text">
+      <p>I am a Senior Lecturer in Economics at University of Bristol, UK.
+        My research interest lies in international trade and environmental economics.</p>
+      <p>I study trade and environmental policies, and how they shape each other. To answer these questions, I analyze large-scale firm-level data and text data using ML methods, foundation models (e.g. LLMs), and modern econometric tools.</p>
+      </div>
+      <hr class="r2">
+      <div class="social">
+        <a href="mailto:haeyeonyoon@gmail.com" title="Email: haeyeonyoon@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg></a>
+        <a href="https://maps.google.com/?q=School+of+Economics+University+of+Bristol" title="School of Economics, University of Bristol"><svg viewBox="0 0 24 24" style="transform:scale(0.9)" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></a>
+        <a href="https://scholar.google.com/scholar?q=Haeyeon+Yoon" title="Google Scholar"><svg viewBox="0 0 24 24" style="transform:scale(1.04)" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M1 9.5 12 3.5l11 6-11 6z"/><path d="M5 12v5.5c4 3 10 3 14 0V12"/><path d="M23 9.5V16"/></svg></a>
+      </div>
+      <hr class="r3">
+      <div class="buttons">
+        <a class="button" href="#research">Research</a>
+        <a class="button" href="#teaching">Teaching</a>
+        <a class="button" href="https://drive.google.com/file/d/1KUfC27pWXuTMIQlXZduU2hLfj-k9Pwxi/view?usp=drive_link">CV</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH -->
+  <section id="research" class="view">
+    <div class="page">
+      <a class="back" href="#">← Home</a>
+      <h1>Research</h1>
+
+      <h2>Working Papers</h2>
+      <ol class="plain">
+        <li class="paper"><a class="t" href="https://arxiv.org/pdf/2210.11003">Synthetic Blips: Generalizing Synthetic Controls for Dynamic Treatment Effects</a><br><span class="m">with Anish Agarwal, Sukjin Han, Dwaipayan Saha, and Vasilis Syrgkanis · submitted</span>
+          <details><summary>Abstract</summary><p>Export credit agencies support firms through insurance and loans, often repeatedly and based on past performance. This paper asks whether they could achieve better export outcomes by allocating support differently. We develop “synthetic blips,” a machine-learning-based method that generalizes synthetic controls to estimate the effects of sequential adaptive treatments. Applying it to Korean firm-level data, we find that alternative allocations could have raised exports substantially at lower cost, and we learn rules for targeting support to new firms.</p></details></li>
+        <li class="paper"><a class="t" href="https://drive.google.com/file/d/1ZacUChZvUL1K-eaGOHWhYr462LXEeoK7/view?usp=drive_link">Trade Liberalization and Product Dynamics within Firm: Role of Competition and Market Expansion</a><br><span class="m">with Jung Hur</span>
+          <details><summary>Abstract</summary><p>Under trade liberalization, firms face tougher competition at home and larger markets abroad. Exploiting the Korea–US FTA, under which import and export tariff cuts were largely unrelated across products, we show that import competition leads firms to narrow their product lines, while better export access leads them to expand, mainly in export-oriented industries. Product efficiency, not tariff changes, drives which products firms drop, add, or expand.</p></details></li>
+        <li class="paper"><a class="t" href="https://ssrn.com/abstract=3889907">The Missing Middle in Product Price Distribution</a><br><span class="m">with Pao-Li Chang and Xin Yi</span>
+          <details><summary>Abstract</summary><p>Using U.S. census and Nielsen retail scanner data for 2006–2017, we document a “missing middle” in both the income distribution and the price distribution of consumer goods. A shrinking middle-income population reduces the market share of mid-priced products, especially in densely populated areas. Ignoring this demand-side channel understates the rise in the cost of living, particularly for middle-income households.</p></details></li>
+      </ol>
+
+      <h2>Publications</h2>
+      <ol class="plain">
+        <li class="paper"><a class="t" href="https://www.tandfonline.com/doi/full/10.1080/13504851.2024.2413030">From Local to Global: Understanding Shifts in Production Processes</a><br><span class="m">with Jung Hur · <em>Applied Economics Letters</em>, 2026, 33(8), 1158–1163</span></li>
+        <li class="paper"><a class="t" href="https://onlinelibrary.wiley.com/doi/full/10.1111/twec.13644">How Do Export Credit Services Shape Firm Growth</a><br><span class="m">with Jung Hur · <em>The World Economy</em>, 2025, 48(2), 214–237</span></li>
+        <li class="paper"><a class="t" href="https://academic.oup.com/spp/article/48/1/122/5922858">Do Environmental Regulations Affect FDI Decisions? The Pollution Haven Hypothesis Revisited</a><br><span class="m">with Almas Heshmati · <em>Science and Public Policy</em>, 2021, 48(1), 122–131</span></li>
+        <li class="paper"><a class="t" href="https://doi.org/10.1111/asej.12184">Do Non-exporting Plants Benefit from Sibling Plants?</a><br><span class="m">with Hyunbae Chun, Jung Hur and Nyeong Seon Son · <em>Asian Economic Journal</em>, 2019, 33(3), 221–234</span></li>
+        <li class="paper"><a class="t" href="https://www.tandfonline.com/doi/figure/10.1080/1226508X.2019.1581073">Occupational Composition within Multinational Enterprises: Evidence from Korean Employer-Employee Matched Data</a><br><span class="m">with Jung Hur and Taehyun Ahn · <em>Global Economic Review</em>, 2019, 48(2), 144–160</span></li>
+        <li class="paper"><a class="t" href="https://www.georgetownjournalofinternationalaffairs.org/online-edition/2019/1/1/the-economics-of-south-korean-demographics">The Economics of South Korean Demographics</a><br><span class="m">with Almas Heshmati · <em>Georgetown Journal of International Affairs</em>, 2019</span></li>
+        <li class="paper"><a class="t" href="https://www.emeraldinsight.com/doi/abs/10.1108/JKT-11-2017-0100">Industrial Proximity and Vertical Integration of Multinational Firms: Evidence from Korean Firm-Level Data</a><br><span class="m">with Jung Hur · <em>Journal of Korea Trade</em>, 2018, 22(1), 50–67</span></li>
+        <li class="paper"><a class="t" href="https://drive.google.com/file/d/1j4_jWOLUq98kTdlI2d9VkgB3aTRqwsnS/view?usp=share_link">Economic Performance of Global Value Chain Participation: Evidence from Plant-level Data of Korean Manufacturing Sectors</a> <span class="m">(in Korean)</span><br><span class="m">with Jung Hur and Yongdae Lee · <em>The Korean Journal of Economic Studies</em>, 2018, 66(3), 43–66</span></li>
+        <li class="paper"><a class="t" href="https://drive.google.com/file/d/1mosrc4NoVbbg-t5l7Uh9z3_IIMEExj-q/view?usp=share_link">Market Expansion of Small-Format Chain Stores under Sunday Closing Laws in Korea</a> <span class="m">(in Korean)</span><br><span class="m">with Jisoo Kang, Hyoung-goo Kang and Hailey Hayeon Joo · <em>The Korean Journal of Industrial Organization</em>, 2016, 24(2), 27–54</span></li>
+      </ol>
+
+      <h2>Book Chapters and Edited Volumes</h2>
+      <ol class="plain">
+        <li class="paper"><a class="t" href="https://link.springer.com/chapter/10.1007/978-3-031-82857-7_15">Globalization as a Path to Environmental Sustainability</a><br><span class="m">in R. Brinkmann (ed.), <em>The Palgrave Handbook of Practical Sustainability</em>, Springer Nature, 2025</span></li>
+        <li class="paper"><a class="t" href="https://link.springer.com/rwe/10.1007/978-981-16-1914-4_207-1">Population Aging in Korea: The Fertility Rate and Welfare of the Elderly</a><br><span class="m">with Almas Heshmati · in S. I. Rajan (ed.), <em>Handbook of Aging, Health and Public Policy</em>, Springer, 2023</span></li>
+        <li class="paper"><a class="t" href="https://link.springer.com/rwe/10.1007/978-3-030-38948-2_121-1">Environmental Regulation in Asia</a><br><span class="m">in R. Brinkmann (ed.), <em>The Palgrave Handbook of Global Sustainability</em>, Springer Nature, 2022</span></li>
+        <li class="paper"><a class="t" href="https://www.springer.com/us/book/9789811081255">Economic Growth and Development in Ethiopia</a><br><span class="m">co-edited with Almas Heshmati · Springer, 2018</span></li>
+      </ol>
+
+      <h2>Work in Progress</h2>
+      <ol class="plain">
+        <li class="paper"><span class="t">Dynamics of Multinational Production</span><br><span class="m">with Jung Hur and Frederic Warzynski</span></li>
+        <li class="paper"><span class="t">Do Environmental Provisions in Trade Agreements Matter? Evidence from Text Analysis</span></li>
+        <li class="paper"><span class="t">Optimal Allocation of Export Credit Support</span><br><span class="m">with Sungwon Lee, Sukjin Han and Jung Hur</span></li>
+        <li class="paper"><span class="t">What Happens to Domestic Employment When Firms Go Abroad?</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- TEACHING -->
+  <section id="teaching" class="view">
+    <div class="page">
+      <a class="back" href="#">← Home</a>
+      <h1>Teaching</h1>
+      <h2>University of Bristol</h2>
+      <p class="award"><span class="star" aria-hidden="true">*</span>Nominated for the Outstanding Personal Tutoring / Academic Support Award, 2024</p>
+      <table>
+        <tr><td>2025/26</td><td>International Trade <span class="lvl">(Undergraduate)</span><br>Economics <span class="lvl">(Undergraduate)</span><br>Summer Dissertation Supervision <span class="lvl">(Graduate)</span></td></tr>
+        <tr><td>2024/25</td><td>Economics <span class="lvl">(Graduate)</span><br>International Trade <span class="lvl">(Undergraduate)</span><br>Applied Economics Dissertation Supervision <span class="lvl">(Undergraduate)</span></td></tr>
+        <tr><td>2023/24</td><td>Economics <span class="lvl">(Graduate)</span><br>International Trade <span class="lvl">(Undergraduate)</span><br>Applied Economics Dissertation Supervision <span class="lvl">(Undergraduate)</span></td></tr>
+        <tr><td>2022/23</td><td>Intermediate Microeconomics <span class="lvl">(Undergraduate)</span><br>Environmental Economics <span class="lvl">(Undergraduate)</span><br>Applied Economics Dissertation Supervision <span class="lvl">(Undergraduate)</span><br>Summer Dissertation Supervision <span class="lvl">(Graduate)</span></td></tr>
+        <tr><td>2021/22</td><td>Intermediate Microeconomics <span class="lvl">(Undergraduate)</span><br>Environmental Economics <span class="lvl">(Undergraduate)</span><br>Public Economics <span class="lvl">(Undergraduate)</span><br>Summer Dissertation Supervision <span class="lvl">(Graduate)</span></td></tr>
+        <tr><td>2020/21</td><td>Economics <span class="lvl">(Graduate)</span><br>Mathematics for Economics <span class="lvl">(Undergraduate)</span><br>International Economics <span class="lvl">(Undergraduate)</span><br>Summer Dissertation Supervision <span class="lvl">(Graduate)</span></td></tr>
+      </table>
+    </div>
+  </section>
+</main>
+
+<footer>© 2026 Haeyeon Yoon · Last updated November 2026</footer>
+
+<script>
+function route() {
+  var id = (location.hash || '').slice(1);
+  if (id !== 'research' && id !== 'teaching') id = 'home';
+  document.querySelectorAll('.view').forEach(function (v) { v.classList.toggle('on', v.id === id); });
+  window.scrollTo(0, 0);
+}
+window.addEventListener('hashchange', route);
+route();
+</script>
+</body>
+</html>
