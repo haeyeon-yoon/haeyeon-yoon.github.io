@@ -166,7 +166,7 @@ body[data-ui="a6"] .social a { color: #A86F6A; }
 .cvpages { margin-top: 18px; display: flex; flex-direction: column; gap: 18px; }
 .cvpages canvas { display: block; width: 100%; height: auto; background: #fff; border-radius: 4px;
   box-shadow: 0 2px 14px rgba(59,47,44,.10); }
-.dl { display: inline-block; margin-top: 6px; font-size: 14px; color: #9F665E; border: 1px solid #D3B2AB;
+.dl { display: inline-block; margin-top: 0; font-size: 14px; color: #9F665E; border: 1px solid #D3B2AB;
   border-radius: 6px; padding: 1px 10px; transition: all .15s; }
 .dl:hover { background: #BA7F76; border-color: #BA7F76; color: #fff; }
 #cvnote { margin-top: 28px; }
@@ -268,8 +268,7 @@ body[data-ui="a6"] .social a { color: #A86F6A; }
   <section id="cv" class="view">
     <div class="page cvpage">
       <a class="back" href="#">← Home</a>
-      <div class="cvhead"><h1>Curriculum Vitae</h1></div>
-      <a class="dl" href="cv.pdf" download="CV_Haeyeon_Yoon.pdf">Download</a>
+      <div class="cvhead"><h1>Curriculum Vitae</h1><a class="dl" href="cv.pdf" download="CV_Haeyeon_Yoon.pdf">Download</a></div>
       <div id="cvpages" class="cvpages"><p class="pdfnote">Loading CV…</p></div>
       <p class="pdfnote" id="cvnote">Having trouble viewing? <a href="cv.pdf">Open the CV as a PDF</a>.</p>
     </div>
